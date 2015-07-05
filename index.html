@@ -1,14 +1,46 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="CSGOMarket">
     <head>
         <meta charset="utf-8">
-        <title></title>
-    </head>
-    <body>
+        <title>CS:GO Market Checker</title>
 
+        <script src="js/vendor/angular-1.4.1.min.js"></script>
+        <script src="js/main.js"></script>
+    </head>
+    <body ng-controller="MainController">
+        <div>
+            <label>Select item:</label>
+            <br/>   
+
+            <select ng-model="Item" ng-change="onValueChanged()">
+                <option selected>P2000</option>
+                <option>Glock-18</option> 
+            </select>
+            <br />
+            <br />
+
+            <label>Select finish:</label>
+            <br />
+
+            <select ng-model="Finish" ng-change="onValueChanged()">
+                <option selected>Fire Elemental</option> 
+            </select>
+            <br />
+            <br />
+
+            <label>Select quality:</label>
+            <br />
+            <select ng-model="Quality" ng-change="onValueChanged()">
+                <option selected>Factory New</option> 
+            </select>
+            <br />
+            <br />
+
+            <div ng-model="Result" ng-show="Result">{{Result}}</div>
+
+        </div>
 
         <script src="js/vendor/jquery-1.10.2.min.js"></script>
-        <script src="js/vendor/angular-1.4.1.min.js"></script>
 
     </body>
 </html>
