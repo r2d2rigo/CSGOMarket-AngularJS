@@ -8,10 +8,29 @@ function MainController($scope)
     $scope.onValueChanged = function () {
         if ($scope.Item !== undefined && $scope.Finish !== undefined && $scope.Quality !== undefined) {
 
-            $.get(
-                'https://jsonp.afeld.me/?url=http%3A%2F%2Fsteamcommunity.com%2Fmarket%2Fpriceoverview%2F%3Fcurrency%3D3%26appid%3D730%26market_hash_name%3DP250%2520%7C%2520Steel%2520Disruption%2520%28Factory%2520New%29',
+            var requestUrl = "https://jsonp.afeld.me/?callback=?&url=";
+
+            var urlParameter = "http://steamcommunity.com/market/priceoverview/?currency=2&appid=730&market_hash_name=";
+            urlParameter = urlParameter.concat($scope.Item);
+            urlParameter = urlParameter.concat(" | ");
+            urlParameter = urlParameter.concat($scope.Finish);
+            urlParameter = urlParameter.concat(" (");
+            urlParameter = urlParameter.concat($scope.Quality);
+            urlParameter = urlParameter.concat(")");
+
+            urlParameter = encodeURIComponent(urlParameter);
+            urlParameter = urlParameter.replace("(", "%28");
+            urlParameter = urlParameter.replace(")", "%29");
+
+            requestUrl = requestUrl.concat(urlParameter);
+
+            $.getJSON(
+                requestUrl,
                 function (result) {
-                    $scope.Result = result;
+                    var text = document.createElement("textarea");
+                    text.innerHTML = result.median_price;
+
+                    $scope.Result = text.value;
                 }
             );
         }
